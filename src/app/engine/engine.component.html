@@ -1,0 +1,126 @@
+<app-legend
+  [itemA]="currentItemA"
+  [itemB]="currentItemB"
+  [itemC]="currentItemC"
+  [itemD]="currentItemD"
+  [itemE]="currentItemE"
+  [itemF]="currentItemF"
+  [itemG]="currentItemG"
+  [itemH]="currentItemH"
+  [betResultA]="betScoreA"
+  [betResultB]="betScoreB"
+  [betResultC]="betScoreC"
+  [betResultD]="betScoreD"
+  [betResultE]="betScoreE"
+  [betResultF]="betScoreF"
+  [betResultG]="betScoreG"
+  [betResultH]="betScoreH"
+></app-legend>
+
+<div class="containerContent">
+  <div id="app">
+    <div class="doors">
+      <div class="door">
+        <div class="boxes">{{ firstItem }}</div>
+      </div>
+
+      <div class="door">
+        <div class="boxes">{{ secondItem }}</div>
+      </div>
+
+      <div class="door">
+        <div class="boxes">{{ thirdItem }}</div>
+      </div>
+    </div>
+
+    <div class="container">
+      <button [disabled]="score == 0" class="btn" (click)="suffle()">
+        <div>Spin</div>
+      </button>
+      <div
+        class="btn"
+        [ngClass]="{
+          spredItems:
+            currentItemA ||
+            currentItemB ||
+            currentItemC ||
+            currentItemD ||
+            currentItemE ||
+            currentItemF ||
+            currentItemG ||
+            currentItemH === true
+        }"
+      >
+        <div>
+          <div>${{ score }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button (click)="toggleContainer()">
+    <div class="arrow">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </button>
+
+  <div *ngIf="showContainer" #containerElement class="login-box">
+    <form>
+      <label>Your score:</label>
+      <div>
+        <input
+          class="nameinput"
+          #scoreValueInput
+          type="number"
+          placeholder="Add money"
+          required
+        />
+      </div>
+
+      <label for="dropdown">Choose Bet:</label>
+      <div>
+        <select name="selectedOption" [(ngModel)]="selectedOption">
+          <option value="bet10">Bet 10</option>
+          <option value="bet50">Bet 50</option>
+          <option value="bet100">Bet 100</option>
+        </select>
+      </div>
+
+      <button
+        id="addBtn"
+        [disabled]="selectedOption == undefined"
+        value="Submit"
+        type="submit"
+        (click)="scoreValue(+scoreValueInput.value); onSubmit()"
+      >
+        Add & Play
+      </button>
+    </form>
+  </div>
+
+  <div class="bodyEndGameMsg" *ngIf="gameOver === true">
+    <link
+      href="https://fonts.googleapis.com/css?family=Solitreo"
+      rel="stylesheet"
+    />
+
+    <div class="container">
+      <div class="envelope"></div>
+      <div class="card">
+        <h1 class="message">
+          Roses are red, 🌹<br />
+          violets are blue, 🌈<br />
+          Money may be gone, 💸<br />
+          but hope still shines through. 🥹 <br />
+        </h1>
+        <div class="heart"></div>
+        <button class="addBtn" (click)="reload()">Play again</button>
+      </div>
+      <div class="cover"></div>
+      <div class="lid"></div>
+      <div class="shadow"></div>
+    </div>
+  </div>
+</div>
